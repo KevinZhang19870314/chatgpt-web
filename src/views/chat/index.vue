@@ -109,7 +109,7 @@ async function onConversation() {
   try {
     let lastText = ''
     const fetchChatAPIOnce = async () => {
-      await fetchChatAPIProcess<Chat.ConversationResponse>({
+      const res = await fetchChatAPIProcess<any>({
         prompt: message,
         options,
         signal: controller.signal,
@@ -121,6 +121,7 @@ async function onConversation() {
           let chunk = responseText
           if (lastIndex !== -1)
             chunk = responseText.substring(lastIndex)
+
           try {
             const data = JSON.parse(chunk)
             updateChat(
@@ -151,6 +152,20 @@ async function onConversation() {
           }
         },
       })
+
+      // progress结束后，获取所有的数据，拿到最后返回的chatgpt的tokens信息
+      const all = JSON.parse(`[${(res as any).replaceAll('\n', ',')}]`)
+      const last = all[all.length - 1]
+      const promptTokens = last.detail.usage.prompt_tokens
+      const completionTokens = last.detail.usage.completion_tokens
+      const totalTokens = last.detail.usage.total_tokens
+      // eslint-disable-next-line no-console
+      console.log('promptTokens', promptTokens)
+      // eslint-disable-next-line no-console
+      console.log('completionTokens', completionTokens)
+      // eslint-disable-next-line no-console
+      console.log('totalTokens', totalTokens)
+
       updateChatSome(+uuid, dataSources.value.length - 1, { loading: false })
     }
 
