@@ -1,4 +1,3 @@
-import type { Response } from 'express'
 import express from 'express'
 import type { RequestProps } from './types'
 import type { ChatMessage } from './chatgpt'
@@ -20,13 +19,13 @@ app.all('*', (_, res, next) => {
   next()
 })
 
-router.post('/chat-process', [auth, limiter], async (req, res: Response) => {
+router.post('/chat-process', [auth, limiter], async (req, res) => {
   res.setHeader('Content-type', 'application/octet-stream')
 
   try {
     const { prompt, options = {}, systemMessage, temperature, top_p } = req.body as RequestProps
     let firstChunk = true
-    const r = await chatReplyProcess({
+    await chatReplyProcess({
       message: prompt,
       lastContext: options,
       process: (chat: ChatMessage) => {
@@ -37,10 +36,6 @@ router.post('/chat-process', [auth, limiter], async (req, res: Response) => {
       temperature,
       top_p,
     })
-
-    // eslint-disable-next-line no-console
-    console.log(r.data)
-    res.write(`\n${JSON.stringify(r.data)}`)
   }
   catch (error) {
     res.write(JSON.stringify(error))
@@ -89,6 +84,6 @@ router.post('/verify', async (req, res) => {
 
 app.use('', router)
 app.use('/api', router)
-app.set('trust proxy', true)
+app.set('trust proxy', 1)
 
 app.listen(3002, () => globalThis.console.log('Server is running on port 3002'))

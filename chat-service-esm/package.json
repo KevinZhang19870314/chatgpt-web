@@ -1,22 +1,14 @@
 {
-  "name": "chatgpt-web-service",
-  "version": "1.0.0",
-  "private": false,
-  "description": "ChatGPT Web Service",
-  "author": "ChenZhaoYu <chenzhaoyu1994@gmail.com>",
-  "keywords": [
-    "chatgpt-web",
-    "chatgpt",
-    "chatbot",
-    "express"
-  ],
-  "engines": {
-    "node": "^16 || ^18 || ^19"
-  },
+  "name": "chat-service-esm",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Awesome project developed with TypeORM.",
   "scripts": {
-    "start": "esno ./src/index.ts",
+    "start": "node --loader ts-node/esm src/index.ts",
+    "typeorm": "typeorm-ts-node-esm",
+    "start:esno": "esno ./src/index.ts",
     "dev": "esno watch ./src/index.ts",
-    "prod": "node ./build/index.mjs",
+    "prod": "node ./build/index.js",
     "build": "pnpm clean && tsup",
     "clean": "rimraf build",
     "lint": "eslint .",
@@ -25,23 +17,30 @@
   },
   "dependencies": {
     "axios": "^1.3.4",
-    "chatgpt": "^5.1.2",
+    "body-parser": "^1.19.1",
+    "chatgpt": "^5.2.2",
     "dotenv": "^16.0.3",
     "esno": "^0.16.3",
-    "express": "^4.18.2",
+    "express": "^4.17.2",
     "express-rate-limit": "^6.7.0",
     "https-proxy-agent": "^5.0.1",
     "isomorphic-fetch": "^3.0.0",
+    "mysql2": "^3.2.0",
     "node-fetch": "^3.3.0",
-    "socks-proxy-agent": "^7.0.0"
+    "pg": "^8.4.0",
+    "reflect-metadata": "^0.1.13",
+    "socks-proxy-agent": "^7.0.0",
+    "typeorm": "0.3.14"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.35.3",
+    "@swc/core": "^1.3.49",
     "@types/express": "^4.17.17",
-    "@types/node": "^18.14.6",
+    "@types/node": "^16.11.10",
     "eslint": "^8.35.0",
     "rimraf": "^4.3.0",
+    "ts-node": "10.7.0",
     "tsup": "^6.6.3",
-    "typescript": "^4.9.5"
+    "typescript": "4.5.2"
   }
 }

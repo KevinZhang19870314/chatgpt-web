@@ -1,4 +1,4 @@
-import { isNotEmptyString } from '../utils/is'
+import { isNotEmptyString } from '../utils/is.js'
 
 const auth = async (req, res, next) => {
   const AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY
@@ -7,6 +7,7 @@ const auth = async (req, res, next) => {
       const Authorization = req.header('Authorization')
       if (!Authorization || Authorization.replace('Bearer ', '').trim() !== AUTH_SECRET_KEY.trim())
         throw new Error('Error: 无访问权限 | No access rights')
+
       next()
     }
     catch (error) {
