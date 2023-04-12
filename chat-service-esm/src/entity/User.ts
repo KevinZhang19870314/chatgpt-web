@@ -2,15 +2,24 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
     id: number
 
   @Column()
-    firstName: string
+    name: string
 
-  @Column()
-    lastName: string
+  @Column({ nullable: true })
+    password: string
 
-  @Column()
-    age: number
+  @Column({ default: 10, name: 'total_requests' })
+    totalRequests: number
+
+  @Column({ default: 10, name: 'used_requests' })
+    usedRequests: number
+
+  @Column({ name: 'charged_amount', type: 'decimal', nullable: true, precision: 13, scale: 2 })
+    chargedAmount: number
+
+  @Column('longtext')
+    meta: string
 }

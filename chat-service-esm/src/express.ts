@@ -39,7 +39,7 @@ const setupExpress = () => {
         top_p,
       })
 
-      res.write(`\n${JSON.stringify(r.data)}`)
+      // res.write(`\n${JSON.stringify(r.data)}`)
     }
     catch (error) {
       res.write(JSON.stringify(error))

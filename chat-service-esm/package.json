@@ -4,10 +4,9 @@
   "version": "0.0.1",
   "description": "Awesome project developed with TypeORM.",
   "scripts": {
-    "start": "node --loader ts-node/esm src/index.ts",
     "typeorm": "typeorm-ts-node-esm",
-    "start:esno": "esno ./src/index.ts",
-    "dev": "esno watch ./src/index.ts",
+    "start": "esno --loader ts-node/esm ./src/index.ts",
+    "dev": "esno watch --loader ts-node/esm ./src/index.ts",
     "prod": "node ./build/index.js",
     "build": "pnpm clean && tsup",
     "clean": "rimraf build",
